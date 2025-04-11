@@ -28,7 +28,7 @@ export const VoicemailProvider = ({ children }) => {
   const workerId = manager.workerClient.sid;
 
   // Function to fetch voicemails
-  const fetchVoicemails = async (customFilters = {}) => {
+  const fetchVoicemails = async (customFilters = {}, reset = false) => {
     setIsLoading(true);
     setError(null);
     
@@ -61,7 +61,13 @@ export const VoicemailProvider = ({ children }) => {
 
       const data = await response.json();
       
-      setVoicemails(data.voicemails);
+      if (reset) {
+        setVoicemails(data.voicemails);
+      } else {
+        // Append new voicemails to the existing list
+        setVoicemails((prevVoicemails) => [...prevVoicemails, ...data.voicemails]);
+      }
+
       setPagination(data.pagination);
       
     } catch (err) {
@@ -163,10 +169,10 @@ export const VoicemailProvider = ({ children }) => {
     pagination,
     currentVoicemail,
     audioPlaying,
-    setFilters: (newFilters) => {
+    setFilters: (newFilters, reset = false) => {
       const updatedFilters = { ...filters, ...newFilters, offset: 0 };
       setFilters(updatedFilters);
-      fetchVoicemails(updatedFilters);
+      fetchVoicemails(updatedFilters, reset);
     },
     updateVoicemailStatus,
     setCurrentVoicemail,

@@ -25,8 +25,8 @@ const VoicemailView = ({ manager }) => {
   };
   
   // Handle filter changes
-  const handleFilterChange = (newFilters) => {
-    setFilters(newFilters);
+  const handleFilterChange = (newFilters, reload) => {
+    setFilters(newFilters, reload);
   };
 
   return (
@@ -67,7 +67,7 @@ const VoicemailView = ({ manager }) => {
           {currentVoicemail ? (
             <VoicemailDetail voicemail={currentVoicemail} />
           ) : (
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', marginLeft: '5px' }}>
               <p>Select a voicemail to view details</p>
             </div>
           )}

@@ -71,7 +71,7 @@ const VoicemailList = ({
               padding: '12px 16px',
               borderBottom: '1px solid #e1e3ea',
               cursor: 'pointer',
-              backgroundColor: selectedId === voicemail.id ? '#f2f2f2' : 'transparent',
+              backgroundColor: selectedId === voicemail.id ? '#1F304C' : 'transparent',
               position: 'relative'
             }}
           >
@@ -90,7 +90,7 @@ const VoicemailList = ({
             
             <div style={{ fontWeight: voicemail.status === 'new' ? 'bold' : 'normal' }}>
               <div style={{ marginBottom: '4px', marginLeft: '5px' }}>
-                {formatPhone(voicemail.from_number)}
+                <span>{formatPhone(voicemail.from_number)}</span>
               </div>
               
               <div style={{ 

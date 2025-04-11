@@ -8,7 +8,7 @@ const VoicemailFilters = ({ filters, onFilterChange }) => {
     onFilterChange({
       ...filters,
       status: e.target.value
-    });
+    }, true);
   };
   
   // Handle phone filter change

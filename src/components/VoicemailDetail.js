@@ -112,6 +112,7 @@ const VoicemailDetail = ({ voicemail }) => {
 
   useEffect(() => {
     const fetchAudio = async () => {
+      setAudioUrl(null); // Reset audio URL before fetching new one
       try {
         const res = await fetch(`https://periwinkle-ladybird-6787.twil.io/fetch-voicemail-audio?recordingUrl=${encodeURIComponent(voicemail.recording_url)}`);
         const { audio, mimeType } = await res.json();
@@ -134,7 +135,7 @@ const VoicemailDetail = ({ voicemail }) => {
     };
   
     fetchAudio();
-  }, []);
+  }, [voicemail.recording_url]);
 
   return (
     <div style={{ padding: '20px' }}>
@@ -184,6 +185,7 @@ const VoicemailDetail = ({ voicemail }) => {
       
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <button 
+          disabled
           onClick={handleCall}
           style={{
             padding: '8px 16px',
@@ -196,36 +198,6 @@ const VoicemailDetail = ({ voicemail }) => {
         >
           Call Back
         </button>
-        
-        <div>
-          <button 
-            onClick={handleArchive}
-            style={{
-              padding: '8px 16px',
-              backgroundColor: '#f5f5f5',
-              border: '1px solid #ddd',
-              borderRadius: '4px',
-              marginRight: '10px',
-              cursor: 'pointer'
-            }}
-          >
-            Archive
-          </button>
-          
-          <button 
-            onClick={handleDelete}
-            style={{
-              padding: '8px 16px',
-              backgroundColor: '#f44336',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer'
-            }}
-          >
-            Delete
-          </button>
-        </div>
       </div>
     </div>
   );
