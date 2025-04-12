@@ -93,8 +93,7 @@ const VoicemailDetail = ({ voicemail }) => {
     const manager = Manager.getInstance();
     
     Actions.invokeAction('StartOutboundCall', {
-      destination: voicemail.from,
-      queueSid: manager.serviceConfiguration.voice.outbound_call_flows.default.queue_sid
+      destination: voicemail.from_number
     });
   };
   
@@ -151,15 +150,9 @@ const VoicemailDetail = ({ voicemail }) => {
       
       <div style={{ 
         borderRadius: '8px', 
-        padding: '16px',
+        padding: '16px 16px 16px 0',
         marginBottom: '20px'
       }}>
-        <div style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
-          <div style={{ marginLeft: '10px', minWidth: '50px' }}>
-            {formatDuration(isPlaying && audioRef.current ? audioRef.current.currentTime : 0)} / {formatDuration(audioDuration)}
-          </div>
-        </div>
-        
         {audioUrl ? (
           <audio controls src={audioUrl} />
         ) : (
@@ -185,7 +178,6 @@ const VoicemailDetail = ({ voicemail }) => {
       
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <button 
-          disabled
           onClick={handleCall}
           style={{
             padding: '8px 16px',

@@ -81,7 +81,7 @@ export const VoicemailProvider = ({ children }) => {
   // Function to update a voicemail's status
   const updateVoicemailStatus = async (id, status) => {
     try {
-      const functionUrl = `${process.env.REACT_APP_SERVERLESS_DOMAIN}/voicemail-status-update`;
+      const functionUrl = `https://periwinkle-ladybird-6787.twil.io/voicemail-status-update`;
       
       const response = await fetch(functionUrl, {
         method: 'POST',
@@ -90,8 +90,7 @@ export const VoicemailProvider = ({ children }) => {
         },
         body: JSON.stringify({
           id,
-          status,
-          agentId: workerId
+          status
         })
       });
 
@@ -100,7 +99,12 @@ export const VoicemailProvider = ({ children }) => {
       }
 
       // Refresh voicemails after updating
-      await fetchVoicemails();
+      // Update the voicemail in the local state
+      setVoicemails((prevVoicemails) =>
+        prevVoicemails.map((voicemail) =>
+          voicemail.id === id ? { ...voicemail, status } : voicemail
+        )
+      );
       
       // If we updated the currently selected voicemail, update that too
       if (currentVoicemail && currentVoicemail.id === id) {
@@ -150,15 +154,6 @@ export const VoicemailProvider = ({ children }) => {
   // Listen for new voicemails (could be implemented with websockets or polling)
   useEffect(() => {
     fetchVoicemails();
-    
-    // Set up polling for new voicemails every 30 seconds
-    const interval = setInterval(() => {
-      if (filters.status === 'new') {
-        fetchVoicemails();
-      }
-    }, 30000);
-    
-    return () => clearInterval(interval);
   }, []);
 
   const value = {

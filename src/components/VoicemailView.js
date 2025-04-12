@@ -67,7 +67,7 @@ const VoicemailView = ({ manager }) => {
           {currentVoicemail ? (
             <VoicemailDetail voicemail={currentVoicemail} />
           ) : (
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', marginLeft: '5px' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', marginLeft: '5px', marginTop: '5px' }}>
               <p>Select a voicemail to view details</p>
             </div>
           )}

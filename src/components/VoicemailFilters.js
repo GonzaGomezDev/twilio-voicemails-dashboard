@@ -22,7 +22,7 @@ const VoicemailFilters = ({ filters, onFilterChange }) => {
     onFilterChange({
       ...filters,
       phone: phoneFilter
-    });
+    }, true);
   };
   
   // Clear phone filter
@@ -31,7 +31,7 @@ const VoicemailFilters = ({ filters, onFilterChange }) => {
     onFilterChange({
       ...filters,
       phone: ''
-    });
+    }, true);
   };
 
   return (
@@ -54,8 +54,6 @@ const VoicemailFilters = ({ filters, onFilterChange }) => {
         >
           <option value="new">New</option>
           <option value="read">Read</option>
-          <option value="archived">Archived</option>
-          <option value="deleted">Deleted</option>
           <option value="">All</option>
         </select>
       </div>
