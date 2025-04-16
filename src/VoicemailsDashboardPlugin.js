@@ -1,6 +1,5 @@
 import React from 'react';
 import { FlexPlugin } from '@twilio/flex-plugin';
-import { Tab } from '@twilio/flex-ui';
 import VoicemailView from './components/VoicemailView';
 import { VoicemailProvider } from './context/VoicemailContext';
 
@@ -30,7 +29,7 @@ export default class VoicemailDashboardPlugin extends FlexPlugin {
     flex.SideNav.Content.add(
       <flex.SideLink
         key="voicemail-nav"
-        icon="Message"
+        icon="Audio"
         label="Voicemail"
         showLabel={true}
         onClick={() => flex.Actions.invokeAction('NavigateToView', { viewName: 'voicemail-view' })}
